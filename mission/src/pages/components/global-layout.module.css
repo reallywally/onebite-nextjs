@@ -1,0 +1,14 @@
+.container {
+  background-color: black;
+  color: rgb(255, 255, 255);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0px 20px;
+  height: 100vh;
+}
+
+.header {
+  color: rgb(229, 9, 20);
+  font-size: 20px;
+  text-decoration: none;
+}

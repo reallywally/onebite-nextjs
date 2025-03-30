@@ -1,0 +1,16 @@
+import { ReactNode } from "react";
+import Link from "next/link";
+import style from "./global-layout.module.css";
+
+export default function GlobalLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className={style.container}>
+      <header>
+        <Link className={style.header} href={"/"}>
+          ONEBITE CINEMA
+        </Link>
+      </header>
+      <main className={style.main}>{children}</main>
+    </div>
+  );
+}
