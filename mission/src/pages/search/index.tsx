@@ -1,30 +1,30 @@
-import { useRouter } from "next/router";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import style from "./index.module.css";
-import SearchableLayout from "../components/searchable-layout";
-import movies from "@/mock/dummy.json";
 import MovieItem from "../components/movie-item";
-import { MovieData } from "@/types";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import fetchMovies from "@/lib/fetch-movies";
+import SearchableLayout from "../components/searchable-layout";
 
-export default function Search() {
-  const router = useRouter();
-  const q = router.query.q as string;
-  console.log("q", q);
-  const [filterItems, setFilterIems] = useState<MovieData[]>([]);
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const q = context.query.q;
 
-  useEffect(() => {
-    if (q === "") {
-      setFilterIems(movies);
-    } else {
-      const list = movies.filter((movie) => movie.title.includes(q));
-      console.log("list", list);
-      setFilterIems(list);
-    }
-  }, []);
+  const movies = await fetchMovies(q as string);
 
+  return {
+    props: {
+      movies,
+    },
+  };
+};
+
+export default function Search({
+  movies,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div className={style.container}>
-      {filterItems.map((movie) => (
+      {movies.map((movie) => (
         // eslint-disable-next-line react/jsx-key
         <div className={style.item}>
           <MovieItem key={movie.id} {...movie} />

@@ -1,7 +1,7 @@
-import { BookData } from "@/types";
+import { MovieData } from "@/types";
 
-export default async function fetchRandomBooks(): Promise<BookData[]> {
-  const url = "http://localhost:12345/book/random";
+export default async function fetchRandomMovies(): Promise<MovieData[]> {
+  const url = "http://localhost:12345/movie/random";
 
   try {
     const response = await fetch(url);
