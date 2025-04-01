@@ -39,3 +39,28 @@ npx create-next-app@14 [프로젝트명]
 - css의 충돌을 막기 위해 App 컴포넌트에서만 글로벌 css를 import 가능
 - next는 모듈 css를 지원
   - index.module.css로 만들면 tsx 파일에서 import 가능
+
+### 사전 렌더링과 데이터 페칭
+
+- 리액트은 마운트 이후에 데이터 페칭을 요청해서 렌더링 완료 시간 +_페칭 시간으로 생각 보다 오래걸리 수 있음
+- next는 이런 단점을 보완하고자 사전 렌더링 중 데이터 페칭을 할수 있음
+- 사전 렌더링 종류로 1) SSR, 2) SSG, 3) ISR가 있음
+- 혹시나 페칭 데이터가 많거나, 서버 상태가 안좋아서 오래걸릴 수도 있는데 이건 빌드타임으로도 해결 가능
+
+### SSR
+
+- tsx파일안에 SSR을 사용하는 약속의 함수를 만들면 간단하게 할 수 있음
+
+```typescript
+export const getServerSideProps = () => {
+  // 컴포넌트 보다 먼저 실행됨
+
+  const data = "hello world";
+
+  return {
+    props: {
+      data,
+    },
+  };
+};
+```
