@@ -64,3 +64,12 @@ export const getServerSideProps = () => {
   };
 };
 ```
+
+### SSG
+
+- build 할때 페이지를 렌더링하고 요청이 오면 즉각적 응답
+- 대신 데이터 최신 반영이 어려움
+- 당연히? 개발 모드로는 안됨
+- 그리고 미리 렌더링되니까 getStaticProps는 query string을 받아올수 없고 search 페이지 같은 경우 원래는 SSG 방식이 불가능
+- 동적 페이지는 getStaticPaths 추가 필요
+- SSG

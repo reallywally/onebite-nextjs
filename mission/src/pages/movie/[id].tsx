@@ -1,10 +1,26 @@
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import {
+  GetServerSidePropsContext,
+  GetStaticPropsContext,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+} from "next";
 import style from "./[id].module.css";
 import fetchOneMovie from "@/lib/fetch-one-movie";
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getStaticPaths = () => {
+  return {
+    paths: [
+      { params: { id: "1" } },
+      { params: { id: "2" } },
+      { params: { id: "3" } },
+      { params: { id: "4" } },
+      { params: { id: "5" } },
+    ],
+    fallback: true,
+  };
+};
+
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const id = context.params!.id;
   const movie = await fetchOneMovie(Number(id));
 
@@ -17,7 +33,7 @@ export const getServerSideProps = async (
 
 export default function Movie({
   movie,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   if (!movie) return "조회 에러";
 
   const { id, title, subTitle, description, posterImgUrl } = movie;
