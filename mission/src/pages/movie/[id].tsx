@@ -6,6 +6,8 @@ import {
 } from "next";
 import style from "./[id].module.css";
 import fetchOneMovie from "@/lib/fetch-one-movie";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export const getStaticPaths = () => {
   return {
@@ -34,15 +36,33 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 export default function Movie({
   movie,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  if (!movie) return "조회 에러";
+  const router = useRouter();
+  if (router.isFallback) {
+    return (
+      <>
+        <Head>
+          <title>한입북스</title>
+          <meta property="og:image" content="/thumbnail.png" />
+          <meta property="og:title" content="한입영화화-검색결과" />
+          <meta property="og:description" content="영화를 봅시다!" />
+        </Head>
+        <div>로딩중입니다.</div>
+      </>
+    );
+  }
 
+  if (!movie) return "조회 에러";
   const { id, title, subTitle, description, posterImgUrl } = movie;
 
-  // const router = useRouter();
-  // const { id } = router.query;
-
   return (
-    <h1>
+    <>
+      <Head>
+        <title>한입영화</title>
+        <meta property="og:image" content={posterImgUrl} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+      </Head>
+
       <div className={style.container}>
         <div
           className={style.cover_img_container}
@@ -55,6 +75,6 @@ export default function Movie({
 
         <div className={style.description}>{description}</div>
       </div>
-    </h1>
+    </>
   );
 }

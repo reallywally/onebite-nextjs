@@ -6,6 +6,7 @@ import fetchMovies from "@/lib/fetch-movies";
 import SearchableLayout from "../components/searchable-layout";
 import { MovieData } from "@/types";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 // export const getServerSideProps = async (
 //   context: GetServerSidePropsContext
@@ -40,6 +41,12 @@ export default function Search() {
 
   return (
     <div className={style.container}>
+      <Head>
+        <title>한입영화</title>
+        <meta property="og:image" content="/thumbnail.png" />
+        <meta property="og:title" content="한입영화화" />
+        <meta property="og:description" content="영화를 봅시다" />
+      </Head>
       {movies.map((movie) => (
         // eslint-disable-next-line react/jsx-key
         <div className={style.item}>
