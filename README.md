@@ -73,3 +73,10 @@ export const getServerSideProps = () => {
 - 그리고 미리 렌더링되니까 getStaticProps는 query string을 받아올수 없고 search 페이지 같은 경우 원래는 SSG 방식이 불가능
 - 동적 페이지는 getStaticPaths 추가 필요
 - SSG
+
+### ISR
+
+- 특정 시간 이후의 다시 생성
+- 시간과 상관없이 사용자 행동으로 최신 데이터가 변경되는 경우 ISR은 적합하지 않을 수 있음
+- 그래서 요청을 받을때 마다 다시 생성하는 방식을 on-demand ISR 이라함
+- 요즘 이 방식을 많이 사용

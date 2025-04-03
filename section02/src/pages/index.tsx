@@ -26,6 +26,7 @@ export const getStaticProps = async () => {
       allBooks,
       recommandBooks,
     },
+    // revalidate: 3, // 재생성 주기 초
   };
 };
 
